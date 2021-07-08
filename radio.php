@@ -53,7 +53,7 @@ Buffer:
 <label id="debug"></label>
 
 <audio 	onstalled="Load(0)" 
-		onwaiting="Load(1)" 
+	onwaiting="Load(1)" 
         onplaying="Load(2)" 
         onpause="logoPlPs()"
         onplay="logoPlPs()"
