@@ -62,37 +62,37 @@ Buffer:
 
 <script>
 	var svol  = document.querySelector('input');
-    var vprad = document.getElementById("pradio");
+        var vprad = document.getElementById("pradio");
 	var vplps = document.getElementById("iplps");
-    var vsrad = document.getElementById("sradio");
+        var vsrad = document.getElementById("sradio");
 	var virad = document.getElementById("thumb");
-    var vbuff = document.getElementById("buffer");
-    var ithumb;
+	var vbuff = document.getElementById("buffer");
+    	var ithumb;
 	    
-    svol.addEventListener('input', 
-        function () {
-            vprad.volume = svol.value / 100;
-            document.cookie = "vol=" + svol.value;
-        }, 
-    false);
+    	svol.addEventListener('input', 
+        	function () {
+            		vprad.volume = svol.value / 100;
+            		document.cookie = "vol=" + svol.value;
+        	}, 
+    	false);
 
 	function SetVolume(pg) {
-    	if (vol != "" && pg) {
-        	var vol = getCookie("vol");
-            svol.value = vol;
-        }
-        else {
-        	if (vprad.muted) {
-            	document.getElementById('ivol').src = "logo/speaker.png";    
-                }
-             else {
-             	document.getElementById('ivol').src = "logo/mute.png";
-             }
-            	vprad.muted = !vprad.muted;
-            }         
-    }
+    		if (vol != "" && pg) {
+        		var vol = getCookie("vol");
+            		svol.value = vol;
+        	}
+        	else {
+        		if (vprad.muted) {
+            			document.getElementById('ivol').src = "logo/speaker.png";    
+                	}
+             		else {
+             			document.getElementById('ivol').src = "logo/mute.png";
+             		}
+            		vprad.muted = !vprad.muted;
+            	}         
+    	}
     
-    function getCookie(cname) {
+	function getCookie(cname) {
   		var name = cname + "=";
   		var decodedCookie = decodeURIComponent(document.cookie);
   		var ca = decodedCookie.split(';');
@@ -108,69 +108,65 @@ Buffer:
   		return "";
 	}
     
-    function Load(st) {
-    	vbuff.value = "0";
-	    switch (st) {
+   	function Load(st) {
+    		vbuff.value = "0";
+	    	switch (st) {
   			case 0:
-    			virad.src = "logo/error-cloud.png";
-    		break;
-        	case 1:
-        		virad.src = "logo/loading.gif";
-            break;
-            case 2:
-        		virad.src = ithumb;
-            }
-    }
+    				virad.src = "logo/error-cloud.png";
+    				break;
+        		case 1:
+        			virad.src = "logo/loading.gif";
+            			break;
+            		case 2:
+        			virad.src = ithumb;
+            	}
+    	}
     
-    function Buffer() {
-    	vbuff.value = vprad.buffered.end(0) - vprad.currentTime;
-                
-        //document.getElementById("debug").innerHTML = vbuff.value;
-            
-    }
+    	function Buffer() {
+    		vbuff.value = vprad.buffered.end(0) - vprad.currentTime;
+        	//document.getElementById("debug").innerHTML = vbuff.value;
+    	}
     
-    function logoPlPs(){
-    	if (vprad.paused) {
-        	vplps.src = "logo/iplay.png";
-        		
-        }
-        else {
-        	vplps.src = "logo/ipause.png";
-        	
-        }
-    }
-    
-    function PlayPause() {
-    	if (vprad.readyState != 0) {
-        	if (vprad.paused) {
-        		vprad.play();
+    	function logoPlPs(){
+    		if (vprad.paused) {
+        		vplps.src = "logo/iplay.png";
         	}
         	else {
-        		vprad.pause();
+        		vplps.src = "logo/ipause.png";
         	}
-        }
-     }
+    	}
     
-    function reload() {
+    	function PlayPause() {
+    		if (vprad.readyState != 0) {
+        		if (vprad.paused) {
+        			vprad.play();
+        		}
+        		else {
+        			vprad.pause();
+        		}
+        	}
+     	}
+    
+	function reload() {
 		vprad.load();
 		setRadio();
 	}
 	
 	function setRadio() { 
   		switch (vsrad.value) {
-            <?php
-                $case = mysqli_query($db, "select * from estacoes");
+            	<?php
+                	$case = mysqli_query($db, "select * from estacoes");
                 
-                while($case_val = mysqli_fetch_array($case)) {
-                    echo 'case "'.$case_val['id'].'":'."\n";
-                    echo 'vprad.src = "' . $case_val['url'] . '";' . "\n";
-                    echo 'ithumb = "' . $case_val['logo'] . '";' . "\n";
-                    echo "break;\n";
-                }	
-            ?>  			
+                	while($case_val = mysqli_fetch_array($case)) {
+                    		echo 'case "'.$case_val['id'].'":'."\n";
+                    		echo 'vprad.src = "' . $case_val['url'] . '";' . "\n";
+                    		echo 'ithumb = "' . $case_val['logo'] . '";' . "\n";
+                    		echo "break;\n";
+                	}	
+            	?>  			
 		}
   		vprad.volume = svol.value / 100;
 		vprad.play();
-    }
+    	}
 </script>
 <?php mysqli_close($db); ?>
