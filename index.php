@@ -17,12 +17,16 @@
         $key = $_GET['vsrad'];
         $menu = mysqli_query($db, "select id, nome from estacoes");
         while($menu_val = mysqli_fetch_array($menu)) {
+            echo "<option value='".$menu_val['id']."'>".$menu_val['nome']."</option>\n";
+            /*
+            Future Implementation
             if ($key == $menu_val['id']){
                 echo "<option value='".$menu_val['id']."' selected>".$menu_val['nome']."</option>\n";
             }
             else{
                 echo "<option value='".$menu_val['id']."'>".$menu_val['nome']."</option>\n";
             }
+            */
         }	
     ?>  
 </select>
