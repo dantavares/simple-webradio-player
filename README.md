@@ -8,7 +8,7 @@ This is a simple player for web radio, with a cool features, includes:
 * Smooth volume bar
 * Simple to add, edit and delete stations
 
-To install on your server, simple copy all files on a folder, import a "db.sql" file on your mysql database and set a user and password on "db-connect.php". You can improve a security access creating a supplementary files on apache server (if you are using apache), here a example of .htaccess:
+To install on your server, simple copy all files on a folder, import a "radio.sql" file on your mysql database and set a user and password on "db-connect.php". You can improve a security access creating a supplementary files on apache server (if you are using apache), here a example of .htaccess:
 
 ```
 #.htaccess
