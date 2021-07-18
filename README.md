@@ -24,6 +24,7 @@ To install on your server, simple copy all files on a folder, import a "db.sql" 
     Require valid-user
 </files>
 ```
+In this case, you need to create your personal user and password using a 'htpasswd' command on apache server.
 
 Future improvements:
 
