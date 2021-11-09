@@ -11,33 +11,30 @@
 <link rel="preload" href="logo/error-cloud.png" as="image">
 </head>
 <body onload="SetVolume(1)">
+<label>Selecione a Radio:</label>
 <select onchange="setRadio()" id="sradio">
     <option disabled selected> ----------------------- </option>
     <?php
         $key = $_GET['vsrad'];
         $menu = mysqli_query($db, "select id, nome from estacoes");
         while($menu_val = mysqli_fetch_array($menu)) {
-            echo "<option value='".$menu_val['id']."'>".$menu_val['nome']."</option>\n";
-            /*
-            Future Implementation
             if ($key == $menu_val['id']){
                 echo "<option value='".$menu_val['id']."' selected>".$menu_val['nome']."</option>\n";
             }
             else{
                 echo "<option value='".$menu_val['id']."'>".$menu_val['nome']."</option>\n";
             }
-            */
         }	
     ?>  
 </select>
 <br><br>
 <table>
 <tr valign="center">
-<th><img onclick="PlayPause()" id="iplps" width="50" height="50"></th>
-<th><img onclick="reload()" id="thumb" width="100" height="100"></th>
+<th><img draggable="false" onclick="PlayPause()" id="iplps" width="50" height="50"></th>
+<th><img draggable="false" onclick="reload()" id="thumb" width="100" height="100"></th>
 </tr><tr><th>
 <BR>Volume:<BR> 
-<img id="ivol" onclick="SetVolume(0)" src="logo/speaker.png">
+<img draggable="false" id="ivol" onclick="SetVolume(0)" src="logo/speaker.png">
 <input type="range" min="0" max="100"><BR>
 </th></tr></table>
 <BR>
@@ -47,7 +44,7 @@ Buffer:
 <label id="debug"></label>
 <audio onstalled="Load(0)" onwaiting="Load(1)" onplaying="Load(2)" onpause="logoPlPs()"
        onplay="logoPlPs()" onprogress="Buffer()" id="pradio"></audio>
-<BR><a href="radio-config.php">Config</a>
+<!-- <BR><a href="radio-config.php">Config</a> -->
 
 <script>
     var svol  = document.querySelector('input');
@@ -58,6 +55,11 @@ Buffer:
     var vbuff = document.getElementById("buffer");
     var ithumb;
 	    
+    function reload() {
+        vprad.load();
+        setRadio();
+    }
+    
     svol.addEventListener('input', 
         function () {
             vprad.volume = svol.value / 100;
@@ -69,6 +71,10 @@ Buffer:
     	if (vol != "" && pg) {
             var vol = getCookie("vol");
             svol.value = vol;
+            if (pg > 1) {
+                reload();
+                document.getElementById("debug").innerHTML = pg;
+            }
         }
         else {
             if (vprad.muted) {
@@ -136,11 +142,6 @@ Buffer:
         }
      }
     
-    function reload() {
-	vprad.load();
-	setRadio();
-    }
-	
     function setRadio() { 
   	switch (vsrad.value) {
         <?php
