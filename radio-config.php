@@ -73,8 +73,7 @@
             break;
         
         case "dreg":
-            echo "DELETE FROM estacoes WHERE id=$id";
-            mysqli_query($db,"DELETE FROM estacoes WHERE id=$key");
+            mysqli_query($db,"DELETE FROM estacoes WHERE id=$id");
             header("Location: $rphp");
             break;
     }
