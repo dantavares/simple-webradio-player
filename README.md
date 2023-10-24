@@ -28,5 +28,4 @@ In this case, you need to create your personal user and password using a 'htpass
 
 Future improvements:
 
-* Upload and delete a logo image to server
-* Go to a direct desired radio on hyperlink
+* Show Music Name, artist etc.
