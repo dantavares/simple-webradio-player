@@ -1,19 +1,22 @@
 <?php 
     include('db-connect.php'); 
-    $rphp = 'index.php';
+    $rphp = 'radio-config.php';
             
-    function radioform($f_id, $f_type , $f_nrad, $f_url, $f_logo, $f_bt){
-        echo "<form name='form' action='radio-config.php' method='post'><table>\n";
-        echo "<tr><td>Radio: </td><td><input type='text' id='n_rad' name='n_rad' value='$f_nrad'></td></tr>\n";
+    function radioform($f_id, $f_type , $f_nrad, $f_url, $f_bt){
+        echo "<form name='form' action='radio-config.php' method='post' enctype='multipart/form-data'><table>\n";
+        echo "<tr><td>Nome da Radio: </td><td><input type='text' id='n_rad' name='n_rad' value='$f_nrad'></td></tr>\n";
         echo "<tr><td>URL: </td><td><input type='text' id='n_url' name='n_url' value='$f_url'></td></tr>\n";
-        echo "<tr><td>Logo: </td><td><input type='text' id='n_logo' name='n_logo' value='$f_logo'></td></tr>\n";
-        echo "<input type='hidden' name='type' value='$f_type' />\n";
+        if ($f_type != "add"){
+			echo "<tr><td>Logo da rádio:</td><td>";
+			echo "<a href='upload.php?id=$f_id'><img src='display.php?id=$f_id' width='100' height='100' /></a></td></tr>\n";
+		}
+		echo "<input type='hidden' name='type' value='$f_type' />\n";
         echo "<input type='hidden' name='id' value='$f_id' /></table>\n";
         echo "<table><tr><td><input type='submit' name='submit' value='$f_bt' id='printbt'/></td></form>\n";
-     }
+	 }
      
      function btform($bt_id, $bt_nform, $bt_type, $bt_name, $bt_clk){
-        echo "<form name='$bt_nform' action='radio-config.php' method='post'>\n";
+        echo "<form name='$bt_nform' action='radio-config.php' method='post' enctype='multipart/form-data'>\n";
         echo "<input type='hidden' name='type' value='$bt_type'>\n";
         echo "<input type='hidden' name='id' value='$bt_id' />\n";
         echo "<input type='submit' name='bt' value='$bt_name'".' onclick="'.$bt_clk.'"/>'."\n";
@@ -51,25 +54,25 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nrad   = $_POST['n_rad'];
         $nurl   = $_POST['n_url'];
-        $nlogo  = $_POST['n_logo'];
         $id     = $_POST['id'];
         $type   = $_POST['type'];
     }
     
-    switch ($type){
+	switch ($type){
         case "up":
-            mysqli_query($db,"update estacoes set nome='$nrad', url='$nurl', logo='$nlogo' where id=$id");
-            header("Location: $rphp");
-            break;
+            mysqli_query($db,"update estacoes set nome='$nrad', url='$nurl' where id=$id");
+            header("Location: $rphp?vsrad=$id");
+			break;
         
         case "nreg":
-            radioform("", "add", "", "", "", "Adicionar");
+            radioform("", "add", "", "", "Adicionar");
             echo "<br></tr></table>\n";
             break;
         
         case "add":
-            mysqli_query($db,"INSERT INTO estacoes(nome, url, logo) VALUES ('$nrad','$nurl','$nlogo')");
-            header("Location: $rphp");
+            mysqli_query($db,"INSERT INTO estacoes(nome, url) VALUES ('$nrad','$nurl')");
+            $last_id = mysqli_insert_id($db);
+			header("Location: $rphp?vsrad=$last_id");
             break;
         
         case "dreg":
@@ -81,10 +84,11 @@
     if ($key != "") {
         $inbox = mysqli_query($db, "select * from estacoes where id=$key");
         $inb_val = mysqli_fetch_array($inbox);
-        radioform($key, "up", $inb_val['nome'], $inb_val['url'], $inb_val['logo'], "Atualizar");
+        radioform($key, "up", $inb_val['nome'], $inb_val['url'], "Atualizar");
         echo "<br><td>\n";
-        btform($key, "f_del", "dreg", "Excluir",'return confirm('."'Tem certeza que deseja excluir esta estação?');");
+		btform($key, "f_del", "dreg", "Excluir",'return confirm('."'Tem certeza que deseja excluir esta estação?');");
         echo "</td></tr></table><br>\n";
+		echo "<a href='index.php'>Voltar para a Rádio</a>";
     }
 ?>
 
@@ -96,4 +100,3 @@
 </script>
 
 <?php mysqli_close($db);
-
