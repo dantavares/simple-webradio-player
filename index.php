@@ -150,7 +150,7 @@ Buffer:
             while($case_val = mysqli_fetch_array($case)) {
                 echo 'case "'.$case_val['id'].'":'."\n";
                 echo 'vprad.src = "' . $case_val['url'] . '";' . "\n";
-                echo 'ithumb = "' . $case_val['logo'] . '";' . "\n";
+                echo 'ithumb = "display.php?id=' . $case_val['id'] . '";' . "\n";
                 echo "break;\n";
             }	
         ?>  			
