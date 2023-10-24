@@ -2,7 +2,8 @@
 
 This is a simple player for web radio, with a cool features, includes:
 
-* Lightweight: Working with pure Java Script, only stations is get by php and stored on mysql
+* Lightweight: Working with pure Java Script,
+* Stations info and image logo is stored on mysql database
 * Smartphone friendly
 * Buffer Meter
 * Smooth volume bar
