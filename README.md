@@ -1,7 +1,6 @@
 # Simple web radio player
 
 This is a simple and minimalist radio player for webpage, with a cool features, includes:
-
 * Lightweight: Working with pure Java Script,
 * Stations info and image logo is stored on mysql database
 * Smartphone friendly
@@ -30,6 +29,11 @@ In this case, you need to create your personal user and password using a 'htpass
 
 The function playing now, bitrate, etc., depends on the server that is transmitting the radio, in this case, for now, it is only compatible with icecast servers with icy or ogg metadata. Even so, radios broadcast via shoutcast should play normally, but without any additional information.
 
-Future improvements:
+Known issues:
+* Play/Pause using Android API does not work properly.
+* Blank or unknown images appear as error.
+* Depending on the location of the radio, some characters may appear strange.
+* Sometimes (rarely), the artist and song name may appear as "undefined".
 
+Future improvements:
 * Shoutcast support.
