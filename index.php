@@ -120,8 +120,6 @@
 					if (ctry > 1) {
 						erro = 1;
 						ctry = 0;
-						metadataEl.innerHTML = "";
-						metadataQueueEl.innerHTML = "";
 					};
 					vprad.load();
 					ReloadMetadata(url);
@@ -247,6 +245,9 @@
         ?>  			
 	}
         mtype = "ogg";
+		bitrateinfo.innerHTML = "";
+		metadataEl.innerHTML = "";
+		metadataQueueEl.innerHTML = "";
 		vprad.volume = svol.value / 100;
 		ReloadMetadata(url);
     }
