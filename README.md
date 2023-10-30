@@ -27,6 +27,8 @@ To install on your server, simple copy all files on a folder, import a "radio.sq
 ```
 In this case, you need to create your personal user and password using a 'htpasswd' command on apache server.
 
+Use "radio-config.php" file to add, remove and edit radio stations.
+
 The function playing now, bitrate, etc., depends on the server that is transmitting the radio, in this case, for now, it is only compatible with icecast servers with icy or ogg metadata. Even so, radios broadcast via shoutcast should play normally, but without any additional information.
 
 Known issues:
