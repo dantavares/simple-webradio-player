@@ -4,12 +4,16 @@
             
     function radioform($f_id, $f_type , $f_nrad, $f_url, $f_bt){
         echo "<form name='form' action='radio-config.php' method='post' enctype='multipart/form-data'><table>\n";
-        echo "<tr><td>Nome da Radio: </td><td><input type='text' id='n_rad' name='n_rad' value='$f_nrad'></td></tr>\n";
-        echo "<tr><td>URL: </td><td><input type='text' id='n_url' name='n_url' value='$f_url'></td></tr>\n";
+        echo "<tr><td>Nome da Radio: </td><td><input type='text' id='n_rad' name='n_rad' value='$f_nrad' maxlength='20'></td></tr>\n";
+        echo "<tr><td>URL: </td><td><input type='text' id='n_url' name='n_url' value='$f_url' maxlength='100'></td></tr>\n";
         if ($f_type != "add"){
 			echo "<tr><td>Logo da rádio:</td><td>";
 			echo "<a href='upload.php?id=$f_id'><img src='display.php?id=$f_id' width='100' height='100' /></a></td></tr>\n";
+			echo "<tr><td>Clique na imagem para atualizá-la</td><td>";
 		}
+		else {
+			echo "Primeiro adicione a rádio, depois clique na imagem em branco para atualizá-la<BR>\n";
+		};
 		echo "<input type='hidden' name='type' value='$f_type' />\n";
         echo "<input type='hidden' name='id' value='$f_id' /></table>\n";
         echo "<table><tr><td><input type='submit' name='submit' value='$f_bt' id='printbt'/></td></form>\n";
@@ -34,7 +38,7 @@
     <option disabled selected> ----------------------- </option>
     <?php
         $key = $_GET['vsrad'];
-        $menu = mysqli_query($db, "select id, nome from estacoes");
+        $menu = mysqli_query($db, "select id, nome from estacoes order by nome");
         while($menu_val = mysqli_fetch_array($menu)) {
             if ($key == $menu_val['id']){
                 echo "<option value='".$menu_val['id']."' selected>".$menu_val['nome']."</option>\n";
