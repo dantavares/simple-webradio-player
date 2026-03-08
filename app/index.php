@@ -42,23 +42,24 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
 <link rel="icon" href="logo/radio.png">
+
 </head>
 <body onload="SetVolume(1)">
 <label>Selecione a Radio:</label>
 <select onchange="setRadio()" id="sradio">
     <option disabled selected> ----------------------- </option>
     <?php
-        $key = $_GET['vsrad'];
-        $menu = mysqli_query($db, "select id, nome from estacoes order by nome");
-        while($menu_val = mysqli_fetch_array($menu)) {
-            if ($key == $menu_val['id']){
-                echo "<option value='".$menu_val['id']."' selected>".$menu_val['nome']."</option>\n";
-            }
-            else{
-                echo "<option value='".$menu_val['id']."'>".$menu_val['nome']."</option>\n";
-            }
-        }	
-    ?>  
+		$key = $_GET['vsrad'];
+		$menu = $db->query("SELECT id, nome FROM estacoes ORDER BY nome");
+
+		while ($menu_val = $menu->fetchArray(SQLITE3_ASSOC)) {
+			if ($key == $menu_val['id']) {
+				echo "<option value='".$menu_val['id']."' selected>".$menu_val['nome']."</option>\n";
+			} else {
+				echo "<option value='".$menu_val['id']."'>".$menu_val['nome']."</option>\n";
+			}
+		}
+	?> 
 </select>
 <br><br>
 <table>
@@ -80,6 +81,13 @@
 <span id="metadata"></span>
 <span id="metadataQueue"></span>
 <label id="debug"></label>
+
+<?php
+	$rdconf = getenv('HIDE_CONFIG');
+	if (!($rdconf == 'true')) { 
+		echo '<BR><a href="radio-config.php">Radio Config</a>';
+	}
+?>
 
 <script>
     var svol  = document.querySelector('input');
@@ -234,9 +242,8 @@
     function setRadio() { 
   	switch (vsrad.value) {
         <?php
-            $case = mysqli_query($db, "select * from estacoes");
-                
-            while($case_val = mysqli_fetch_array($case)) {
+            $case = $db->query("select * from estacoes");
+            while ($case_val = $case->fetchArray(SQLITE3_ASSOC)) {    
                 echo 'case "'.$case_val['id'].'":'."\n";
                 echo 'url = "' . $case_val['url'] . '";' . "\n";
                 echo 'ithumb = "display.php?id=' . $case_val['id'] . '";' . "\n";
@@ -252,4 +259,3 @@
 		ReloadMetadata(url);
     }
 </script>
-<?php mysqli_close($db); ?>

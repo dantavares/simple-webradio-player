@@ -1,0 +1,15 @@
+# docker compose -f Compose.yml up -d --force-recreate
+
+services:
+   webradio:
+      image: 44934045/webradio
+      ports:
+         - "8080:80"
+      volumes:
+         - wr_data:/var/www/html
+      environment:
+         - HIDE_CONFIG=false #hide "Radio Config" Link - true or false
+      restart: unless-stopped
+
+volumes:
+    wr_data:
