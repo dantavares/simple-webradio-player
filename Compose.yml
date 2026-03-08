@@ -1,5 +1,3 @@
-# docker compose -f Compose.yml up -d --force-recreate
-
 services:
    webradio:
       image: 44934045/webradio
