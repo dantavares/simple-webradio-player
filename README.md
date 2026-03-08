@@ -9,23 +9,13 @@ This is a simple and minimalist radio player for webpage, with a cool features, 
 * Simple to add, edit and delete stations
 * Shows music name, artist, album logo (icecast server only) and bitrate info.
 
-To install on your server, simple copy all files on a folder, import a "radio.sql" file on your mysql database and set a user and password on "db-connect.php". You can improve a security access creating a supplementary files on apache server (if you are using apache), here a example of .htaccess:
+To install on your server (WEB+PHP), copy all files from the app directory to the html directory.
+
+To use it via Docker, you can use the compose.yml example below:
 
 ```
-#.htaccess
-<files db-connect.php>
-    order allow,deny
-    deny from all
-</files>
-
-<files radio-config.php>
-    AuthType Basic
-    AuthName "Acesso Restrito"
-    AuthUserFile /var/www/html/radio/.htpasswd
-    Require valid-user
-</files>
+docker compose -f Compose.yml up -d --force-recreate
 ```
-In this case, you need to create your personal user and password using a 'htpasswd' command on apache server.
 
 Use "radio-config.php" file to add, remove and edit radio stations.
 
