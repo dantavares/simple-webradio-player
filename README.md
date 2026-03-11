@@ -9,7 +9,7 @@ This is a simple and minimalist radio player for webpage, with a cool features, 
 * Simple to add, edit and delete stations
 * Shows music name, artist, album logo (icecast server only) and bitrate info.
 
-To install on your server (WEB+PHP), copy all files from the app directory to the html directory.
+To install on your server (WEB+PHP+PHP-SQLITE3), copy all files from the app directory to the html directory.
 
 To use it via Docker, you can use the compose.yml example below:
 
