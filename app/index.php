@@ -1,6 +1,7 @@
 <?php include('db-connect.php'); ?>
 <!DOCTYPE html>
 <html><head>
+<link rel="stylesheet" href="style.css">
 <script src="imp/icecast-metadata-player-1.17.1.main.min.js"></script> 
 <script>
 	let icecastMetadataPlayer, metadataEl, metadataQueueEl;
